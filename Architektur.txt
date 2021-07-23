@@ -1,45 +1,60 @@
 Monsterkampf Architektur:
 
 class game:
-Die Hauptklasse des Programms heißt "game" und erbt von ConsoleWindow. Der Game-Loop findet hier statt. Die Klasse bekommt alle Informationen die sie 
+Die Hauptklasse des Programms heißt "game" und erbt von ConsoleWindow. Der Game-Loop findet hier statt.
+Die Klasse bekommt alle Informationen die sie
 benötigt um das Spiel zu initialisieren und zu verwalten:
 
-player	= eine selbstdefinierte Klasse. Hier wird der Spieler abgespeichert. Hat eine vektor für das team, sowie eine psoiton und einen vektor für die letzte position
+player	= eine selbstdefinierte Klasse. Hier wird der Spieler abgespeichert. Hat eine vektor für das team,
+        sowie eine psoiton und einen vektor für die letzte position
 
 map	 = ein 3D-Vektor der aus Chars besteht. Hier wird die world-map abgespeichert inklusive aller Zeichen, welche verschiedene Funktionen haben (später dazu mehr), die Map wird bereits bei der Initialisierung
-	von game erstellt. Dafür wird mithilfe der Funktion "readfile(std::string file)" eine Textdatei eingelesen.
+	    von game erstellt. Dafür wird mithilfe der Funktion "readfile(std::string file)" eine Textdatei eingelesen.
 
-enemies	= ein 2D-Vektor, welcher Pointer auf Objekte vom Typ "enemy" abspeichert. Hier sind alle Gegner abgespeichert, die dem Spieler begegnen können. Ist nötig um bei einer Begegnung einen bestimmten Trainer als jetzigen Gegenüber auszuwählen.
+enemies	= ein 2D-Vektor, welcher Pointer auf Objekte vom Typ "enemy" abspeichert. Hier sind alle Gegner abgespeichert,
+        die dem Spieler begegnen können. Ist nötig um bei einer Begegnung einen bestimmten Trainer als jetzigen Gegenüber auszuwählen.
 
-training	= ein 2D-Vektor, welcher Pointer auf Power-Elemente abspeichert. Ist nötig, damit die beiden auf der Karte zu sehenden Power-Up-Felder (Muskel-Symbol) nicht verwechselt werden
+training	= ein 2D-Vektor, welcher Pointer auf Power-Elemente abspeichert. Ist nötig, damit die beiden auf der Karte zu
+        sehenden Power-Up-Felder (Muskel-Symbol) nicht verwechselt werden
 
-current_fight	= eine selbstdefinierte Klasse um die Informationen des aktuellen Kampfes abzuspeichern, hat außerdem boolean um zu gewäährleisten, dass man nur 1x heilen kann
+current_fight	= eine selbstdefinierte Klasse um die Informationen des aktuellen Kampfes abzuspeichern, hat außerdem boolean um zu
+        gewährleisten, dass man nur 1x heilen kann
 
-used	= ein 2D- Vektor, um benutzte Objekte abzuspeichern. Hierbei sind nur die Koordinaten wichtig, daher speichert der Vektor nur die Position (position) des benutzten Objektes. Benutzte Objekte sind Enemy-Objekte, Power-Objekte, aber auch der Spieler. 
-	dies ist wichtig, um bei einer Neu-Initialisierung, z.b. nach einem Kampf (draw_map()) zu gewährleisten, dass Gegner, welche schon besiegt wurden, oder benutzte Power-Objekte nicht noch einmal gezeichnet werden. Außerdem stellt der Vektor sicher, dass
-	der Spieler nicht wieder auf seine Anfangsposition bei Spielstart gesetzt wird.
+used	= ein 2D- Vektor, um benutzte Objekte abzuspeichern. Hierbei sind nur die Koordinaten wichtig, daher speichert der Vektor nur die Position
+        (position) des benutzten Objektes. Benutzte Objekte sind Enemy-Objekte, Power-Objekte, aber auch der Spieler.
+	    dies ist wichtig, um bei einer Neu-Initialisierung, z.b. nach einem Kampf (draw_map()) zu gewährleisten, dass Gegner, welche schon besiegt
+	    wurden, oder benutzte Power-Objekte nicht noch einmal gezeichnet werden. Außerdem stellt der Vektor sicher, dass
+	    der Spieler nicht wieder auf seine Anfangsposition bei Spielstart gesetzt wird.
 
-ticker	= ein uint64_t, welcher als Zählervariable funktioniert. Bei jedem onRefresh() Aufruf innerhalb der Spielwelt wird der Ticker um 1 erhöht. Ist der Ticker auf 20 wird er auf 0 gesetzt. Der Ticker wird benötigt um eine zeitliche Einheit zu haben (für die Power-Felder).
+ticker	= ein uint64_t, welcher als Zählervariable funktioniert. Bei jedem onRefresh() Aufruf innerhalb der Spielwelt wird der Ticker um 1
+        erhöht. Ist der Ticker auf 20 wird er auf 0 gesetzt. Der Ticker wird benötigt um eine zeitliche Einheit zu haben (für die Power-Felder).
 
-sec	= ein unsigned value, welcher als Zählvariable dient um die 5 Sekunden zu zählen, die der Spieler warten muss, bis er den Power-Bonus (Max LP += 5) erhält. Sec wird alle ~18 onRefresh aufrufe erhöht (18, weil onRefresh alle 20s aufgerufen wird, durch den Code wird dies ein wenig verlangsamt, so ergebn sich ~5s),
-	wenn der Spieler auf einem Power Feld steht. Wenn der Spieler nicht auf einem Power Feld steht, oder ein
-	Power-Up erhalten hat, so wird sec auf 0 gesetzt.
+sec	= ein unsigned value, welcher als Zählvariable dient um die 5 Sekunden zu zählen, die der Spieler warten muss, bis er den Power-Bonus (Max LP += 5) erhält. S
+        ec wird alle ~18 onRefresh aufrufe erhöht (18, weil onRefresh alle 20s aufgerufen wird, durch den Code wird dies ein wenig verlangsamt, so ergebn sich ~5s),
+	    wenn der Spieler auf einem Power Feld steht. Wenn der Spieler nicht auf einem Power Feld steht, oder ein
+	    Power-Up erhalten hat, so wird sec auf 0 gesetzt.
 
-wild_monster	= boolean, wenn ein wildes Monster im hohen Gras erscheint ist der Wert true. Stellt sicher, dass onkeyPress() und onRefresh() wie gewünscht funktionieren
+wild_monster	= boolean, wenn ein wildes Monster im hohen Gras erscheint ist der Wert true. Stellt sicher, dass onkeyPress() und onRefresh()
+        wie gewünscht funktionieren
 
-init_enemies	= boolean, true sobald die Enemy-Objekte ein zufälliges Monster erhalten. Wird automatisch false nachdem die Map einmal mit Objekten initialisiert wurde, damit bei einem erneuten Aufruf keine neuen Monster vergeben werden. (nur wichtig für draw_map())
+init_enemies	= boolean, true sobald die Enemy-Objekte ein zufälliges Monster erhalten. Wird automatisch false nachdem die Map einmal mit Objekten initialisiert wurde,
+                damit bei einem erneuten Aufruf keine neuen Monster vergeben werden. (nur wichtig für draw_map())
 
 Wichtige Funktionen:
-onKeyPress()	= ausgehend vom jeweiligen Zustand, welcher über die oben beschriebenen Booleans erzeugt wird hat ein Tastendruck unterschiedliche Funktionen. Diese werden während des Spiels immer angezeigt (außer Bewegung über cursortasten). Hier wird außerdem die direction des Spielers gesetzt
+onKeyPress()	= ausgehend vom jeweiligen Zustand, welcher über die oben beschriebenen Booleans erzeugt wird hat ein Tastendruck unterschiedliche
+                Funktionen. Diese werden während des Spiels immer angezeigt (außer Bewegung über cursortasten). Hier wird außerdem die direction des Spielers gesetzt
 
-onRefresh()	= ausgehend vom jeweiligen durch die Booleans induzierten Zustand wird das Spiel geupdatet. Es werden diverse check-Funktionen aufgerufen um Zustände zu überprüfen. Außerdem wird valid_move() aufgerufen, wenn sich der Spieler bewegen möchte, um zu gewährleisten, dass der nächste Schritt nicht in einer Wand endet
+onRefresh()	= ausgehend vom jeweiligen durch die Booleans induzierten Zustand wird das Spiel geupdatet. Es werden diverse check-Funktionen aufgerufen um Zustände zu überprüfen.
+                Außerdem wird valid_move() aufgerufen, wenn sich der Spieler bewegen möchte, um zu gewährleisten, dass der nächste Schritt nicht in einer Wand endet
 
-draw_map()	= Wird immer ausgeführt, wenn die Spielwelt angezeigt werden soll. Dabei wird für jeden Char in Map die Karte definiert. Wenn ein Char ein Großbuchstabe ist, so hat er eine Funktion und wird mit einem Unicode Zeichen visualisiert. Außerdem werden hier die Gegner initilisiert und dem enemies Vektor hinzugefügt. Im Falle
+draw_map()	= Wird immer ausgeführt, wenn die Spielwelt angezeigt werden soll. Dabei wird für jeden Char in Map die Karte definiert. Wenn ein Char ein Großbuchstabe ist,
+        so hat er eine Funktion und wird mit einem Unicode Zeichen visualisiert. Außerdem werden hier die Gegner initilisiert und dem enemies Vektor hinzugefügt. Im Falle
 		dass Objekte schon benutzt werden wird abgefragt ob diese in "used" zu finden sind. Falls ja wird ein leerer String an die Stelle gesetzt. Außerdem werden hier den Enemy-Objekten ein Monster zugeordnet (siehe init_enemies).
 		Hierfür wird generate_probability aufgerufen
 
 
-clear_last()	= checkt das letzte Feld des Spielers. Je nachdem was sich dort befunden hat wird das letzte Feld mit setCHaracter() überschrieben. Hierzu wird der vektor last des Spielers benutzt, welcher nach jedem move() Aufruf das vorherige Feld erhält, und nach jedem clear_last() Aufruf wieder gecleart wird. So entsteht die Illusion, 
+clear_last()	= checkt das letzte Feld des Spielers. Je nachdem was sich dort befunden hat wird das letzte Feld mit setCHaracter() überschrieben.
+        Hierzu wird der vektor last des Spielers benutzt, welcher nach jedem move() Aufruf das vorherige Feld erhält, und nach jedem clear_last() Aufruf wieder gecleart wird. So entsteht die Illusion,
 		dass sich der Spieler bewegt
 
 class player
