@@ -50,12 +50,11 @@ onRefresh()	= ausgehend vom jeweiligen durch die Booleans induzierten Zustand wi
 draw_map()	= Wird immer ausgeführt, wenn die Spielwelt angezeigt werden soll. Dabei wird für jeden Char in Map die Karte definiert. Wenn ein Char ein Großbuchstabe ist,
         so hat er eine Funktion und wird mit einem Unicode Zeichen visualisiert. Außerdem werden hier die Gegner initilisiert und dem enemies Vektor hinzugefügt. Im Falle
 		dass Objekte schon benutzt werden wird abgefragt ob diese in "used" zu finden sind. Falls ja wird ein leerer String an die Stelle gesetzt. Außerdem werden hier den Enemy-Objekten ein Monster zugeordnet (siehe init_enemies).
-		Hierfür wird generate_probability aufgerufen
+		Hierfür wird generate_probability() aufgerufen
 
 
 clear_last()	= checkt das letzte Feld des Spielers. Je nachdem was sich dort befunden hat wird das letzte Feld mit setCHaracter() überschrieben.
-        Hierzu wird der vektor last des Spielers benutzt, welcher nach jedem move() Aufruf das vorherige Feld erhält, und nach jedem clear_last() Aufruf wieder gecleart wird. So entsteht die Illusion,
-		dass sich der Spieler bewegt
+        Hierzu wird der vektor last des Spielers benutzt. So entsteht die Illusion dass sich der Spieler bewegt
 
 class player
 team	= hier werden die Monster abgespeichert. Dies ist nötig um gefangene Monster zu behalten, sowie um Monster zu tauschen
