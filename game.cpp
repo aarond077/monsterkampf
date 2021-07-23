@@ -41,18 +41,18 @@ bool game::check_used(const position &p) {
     return false;
 }
 
-void game::draw_map() {
+void game::draw_map() { //draws world-map
     for (int i = 0; i < map.size(); ++i) {
         for (int j = 0; j < map[0].size(); ++j) {
             position temp = position(j, i);
-            if (map[i][j] == '0') {
+            if (map[i][j] == '0') { //init player
                 if (!check_used(temp)) {
                     ash.set_pos(temp);
                     setCharacter(j, i, QString::fromUtf8("\xF0\x9F\x98\x83"));
                     used.push_back(temp);
                 } else { setCharacter(j, i, ' '); }
-            } else if (map[i][j] == 'T') {
-                if (!check_used(temp)) {
+            } else if (map[i][j] == 'T') { //init enemies
+                if (!check_used(temp)) { //if enemy is not beaten draw it
                     if (!init_enemies) {
                         enemy *trainer = new enemy();
                         trainer->set_pos(temp);
@@ -65,28 +65,27 @@ void game::draw_map() {
                                      QString::fromUtf8("\xF0\x9F\x98\x83"));
                     } else { setCharacter(temp.get_x(), temp.get_y(), ' '); }
                 }
-            } else if (map[i][j] == '#') {
+            } else if (map[i][j] == '#') { //wall
                 setCharacter(j, i, QString::fromUtf8("\xE2\x96\x92"));
-            } else if (map[i][j] == 'E') {
+            } else if (map[i][j] == 'E') { //exit
                 setCharacter(j, i, QString::fromUtf8("\xE2\x9E\xA5"));
-            } else if (map[i][j] == 'G') {
+            } else if (map[i][j] == 'G') { //grass
                 if (temp != ash.get_pos()) {
                     setCharacter(j, i, QString::fromUtf8("\xF0\x9F\x8C\xB2"));
                 }
-            } else if (map[i][j] == 'Y') {
+            } else if (map[i][j] == 'Y') { //power+
                 if (!check_used(temp)) {
                     power *p = new power();
                     p->set_pos(temp);
                     training.push_back(p);
                     setCharacter(j, i, QString::fromUtf8("\xF0\x9F\x92\xAA"));
                 }
-            } else if (map[i][j] == 'P') {
-                //healing.push_back(temp);
+            } else if (map[i][j] == 'P') { //Healing
                 setCharacter(j, i, QString::fromUtf8("\xF0\x9F\xA4\x8E"));
             } else setCharacter(j, i, map[i][j]);
         }
     }
-    if (!init_enemies) {
+    if (!init_enemies) { //if first draw -> enemies get thir monsters (randomly)
         unsigned p;
         for (int i = 0; i < enemies.size(); ++i) {
             p = generate_probability(3);
