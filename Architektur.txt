@@ -1,24 +1,19 @@
 Monsterkampf Architektur:
 
-class ConsoleWindow
-Die gegebene GUI Klasse (erbt von QMainWindow)
-
 class game:
 Die Hauptklasse des Programms heißt "game" und erbt von ConsoleWindow. Der Game-Loop findet hier statt. Die Klasse bekommt alle Informationen die sie 
 benötigt um das Spiel zu initialisieren und zu verwalten:
 
-player	= eine selbstdefinierte Klasse. Hier wird der Spieler abgespeichert. (siehe class player)
+player	= eine selbstdefinierte Klasse. Hier wird der Spieler abgespeichert. Hat eine vektor für das team, sowie eine psoiton und einen vektor für die letzte position
 
 map	 = ein 3D-Vektor der aus Chars besteht. Hier wird die world-map abgespeichert inklusive aller Zeichen, welche verschiedene Funktionen haben (später dazu mehr), die Map wird bereits bei der Initialisierung
 	von game erstellt. Dafür wird mithilfe der Funktion "readfile(std::string file)" eine Textdatei eingelesen.
-
-rocko	= erbt von enemy, (noch) nicht im Spiel implementiert
 
 enemies	= ein 2D-Vektor, welcher Pointer auf Objekte vom Typ "enemy" abspeichert. Hier sind alle Gegner abgespeichert, die dem Spieler begegnen können. Ist nötig um bei einer Begegnung einen bestimmten Trainer als jetzigen Gegenüber auszuwählen.
 
 training	= ein 2D-Vektor, welcher Pointer auf Power-Elemente abspeichert. Ist nötig, damit die beiden auf der Karte zu sehenden Power-Up-Felder (Muskel-Symbol) nicht verwechselt werden
 
-current_fight	= eine selbstdefinierte Klasse um die Informationen des aktuellen Kampfes abzuspeichern. (siehe class fight_mode)
+current_fight	= eine selbstdefinierte Klasse um die Informationen des aktuellen Kampfes abzuspeichern, hat außerdem boolean um zu gewäährleisten, dass man nur 1x heilen kann
 
 used	= ein 2D- Vektor, um benutzte Objekte abzuspeichern. Hierbei sind nur die Koordinaten wichtig, daher speichert der Vektor nur die Position (position) des benutzten Objektes. Benutzte Objekte sind Enemy-Objekte, Power-Objekte, aber auch der Spieler. 
 	dies ist wichtig, um bei einer Neu-Initialisierung, z.b. nach einem Kampf (draw_map()) zu gewährleisten, dass Gegner, welche schon besiegt wurden, oder benutzte Power-Objekte nicht noch einmal gezeichnet werden. Außerdem stellt der Vektor sicher, dass
@@ -30,23 +25,11 @@ sec	= ein unsigned value, welcher als Zählvariable dient um die 5 Sekunden zu z
 	wenn der Spieler auf einem Power Feld steht. Wenn der Spieler nicht auf einem Power Feld steht, oder ein
 	Power-Up erhalten hat, so wird sec auf 0 gesetzt.
 
-fight_menu	= boolean, wenn true so wird das Kampf-Menü geöffnet (es wird ausgegeben, dass ein Konflikt bevorsteht)
-
-fight	= boolean, wenn der Kampf aktiv ist, so ist fight = true. Stellt sicher, dass die onRefresh Funktion in einem Kampf die Statuswerte der Kontrahenten (Monster) aktualisiert, außerdem ist fight ein wichtiger Boolean um die onkeyPress() Funktion abzugrenzen, sodass im Kampf mit Tasten interagiert werden kann.
-
 wild_monster	= boolean, wenn ein wildes Monster im hohen Gras erscheint ist der Wert true. Stellt sicher, dass onkeyPress() und onRefresh() wie gewünscht funktionieren
-
-change_monster	= boolean, true wenn das aktive Monster gewechselt werden soll/muss (wenn LP auf 0 sind). Führt bei einem true automatisch über die onRefresh Funktion zum Wechsel-Dialog.
 
 init_enemies	= boolean, true sobald die Enemy-Objekte ein zufälliges Monster erhalten. Wird automatisch false nachdem die Map einmal mit Objekten initialisiert wurde, damit bei einem erneuten Aufruf keine neuen Monster vergeben werden. (nur wichtig für draw_map())
 
-major	= boolean, hat (noch) keine Funktion (-> rocko)
-
-quit	= boolean, wenn das Spiel Game-Over ist, oder exit betreten wurde wird der Wert auf true gesetzt, damit die onRefresh Funktionen einen Aufruf der jeweiligen Dialogs-Funktion durchführt
-
-
 Wichtige Funktionen:
-
 onKeyPress()	= ausgehend vom jeweiligen Zustand, welcher über die oben beschriebenen Booleans erzeugt wird hat ein Tastendruck unterschiedliche Funktionen. Diese werden während des Spiels immer angezeigt (außer Bewegung über cursortasten). Hier wird außerdem die direction des Spielers gesetzt
 
 onRefresh()	= ausgehend vom jeweiligen durch die Booleans induzierten Zustand wird das Spiel geupdatet. Es werden diverse check-Funktionen aufgerufen um Zustände zu überprüfen. Außerdem wird valid_move() aufgerufen, wenn sich der Spieler bewegen möchte, um zu gewährleisten, dass der nächste Schritt nicht in einer Wand endet
@@ -59,50 +42,7 @@ draw_map()	= Wird immer ausgeführt, wenn die Spielwelt angezeigt werden soll. D
 clear_last()	= checkt das letzte Feld des Spielers. Je nachdem was sich dort befunden hat wird das letzte Feld mit setCHaracter() überschrieben. Hierzu wird der vektor last des Spielers benutzt, welcher nach jedem move() Aufruf das vorherige Feld erhält, und nach jedem clear_last() Aufruf wieder gecleart wird. So entsteht die Illusion, 
 		dass sich der Spieler bewegt
 
-is_game_over()	= gibt true zurück wenn alle Monster des Spielers besiegt sind (-> LP == 0)
-
-check_ ...	= für alle check-Funktionen (außer check_used und check_healing) gilt: Sie schauen nur ob die Position in dem 3D-Vektor map das gewünschte ASCII zeichen enthält und geben true zurück wenn ja. Dies habe ich gemacht um die Performance zu verbessern, da es nicht nötig ist die meisten objekte extra abzuspeichern
-
-check_used/check_healing	= suchen im jeweiligen vektor nach dem Element. check_used gibt außerdem den Index zurück falls die Funktion das Objekt findet.
-
--> Für alle check_ Funktionen gilt: Sie schauen nur ob die übergebene Position im zur Suche herangezogenen Vektor existiert (bei map werden x, y vertauscht, da es ein 3D-Vektor ist)
--> das alles gilt auch für on_grass()
-
-Die draw_interface(), sowie alle _dialog() Funktionen haben nur die Funktion einen Text auszugeben (writeString())
-wild_monster_appears() zeichnet einen Dialog und setzt außerdem wild_monster auf true (-> siehe wild_monster)
-Die game_over() und die leave_game() Funktion sind dafür da um den Spieler anzuzeigen dass das Spiel beendet ist. Hier hat er bei beiden Fällen die Möglichkeit ein neues Spiel zu starten. Dabei
-wird die reset() Funktion aufgerufen, wo alle Werte auf die Starteinstellungen zurückgesetzt werden (mithilfe diverser Hilfsfunktionen um auf private Membervariablen zuzugreifen). 
-
-
 class player
 team	= hier werden die Monster abgespeichert. Dies ist nötig um gefangene Monster zu behalten, sowie um Monster zu tauschen
 
 last	= Vektor, hier wird die letzte position des Spielers gespeichert, die dann von clear_last() überschrieben wird. Ist nie größer als 1.
-
-direction	= die jewielige Richtung in die sich der Spieler bewegt, Steuerung über die Cursortasten
-
-pos	= aktuelle Position des Spielers. Nötig für viele Funktionen um Zusammenstöße mit Gegnern, cant-reach Objekten (Wand), Gras, Power-Objekt zu überprüfen
-
-
-Die Funktionen sind dafür da um die Werte des Spielers aktuell zu halten und damit game auf private Membervariablen zugreifen kann
-
-
-class fight_mode
-opponent	= enemy Objekt, wo die Werte des gerade kämpfenden Monsters gespeichert werden, wird aktualisiert, sobald ein neuer Kampf beginnt
-
-healed		= gewährleistet, dass nur einmal pro Kampf geheilt werden kann
-
-
-Die Funktionen sind dafür da um die Werte des Gegners aktuell zu halten und damit game auf private Membervariablen zugreifen kann
-
-	
-class postion	= Koordinaten Klasse, die Vektorfunktionen können ignoriert werden, da sie nicht verwendet wurden
-
-class monster	= Klasse um die Werte für ein Monster abzuspeichern. Die Monster werden anhand ihres Namens (std::string) mit verschiedenen Startwerten initialisiert
-
-class enemy	= enemy Klasse. Speichert das Monster des Gegners ab
-
-class tile	= speichert die Power-Objekte (ursprünglich für andere tile objekte wie items geschrieben aber (noch) nicht implementiert)
-
-class type   = noch nicht genutzt/implementiert
-
