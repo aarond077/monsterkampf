@@ -47,9 +47,9 @@ public:
     void heal_team(); //fills the LP of the whole team
     power& find_power(const position &p); //searches in vector for the fitting power-tile at given position
     enemy& find_enemy(const position &p); //searches in vector for the enemy at given position
-    int find_used(const position &p);
-    unsigned generate_probability(const unsigned &val);
-    void wild_monster_appears();
+    int find_used(const position &p); //checks if positition is in used
+    unsigned generate_probability(const unsigned &val); //generates random uint
+    void wild_monster_appears(); //starts wild monster dialog
     void draw_interface();
     void change_first_monster(const unsigned &index);
     void change_monster_dialog();

@@ -244,7 +244,7 @@ void game::draw_interface() { //draws the interface of the monster-world with us
 
 void game::fight_dialog() { //draws fight dialog
     clear();
-    play_sound("pokemon_battle_theme.wav"); //source: https://www.youtube.com/watch?v=hDpfyI8Ljvs
+    play_sound("pokemon_battle_theme2s.wav"); //source: https://www.youtube.com/watch?v=hDpfyI8Ljvs
     fight_menu = true;
     current_fight.set_heal(false);
     writeString(7, 15, "Der Trainer moechte kaempfen! Was moechtest du tun?");
