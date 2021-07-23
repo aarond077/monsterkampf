@@ -2,11 +2,9 @@ Monsterkampf Architektur:
 
 class game:
 Die Hauptklasse des Programms heißt "game" und erbt von ConsoleWindow. Der Game-Loop findet hier statt.
-Die Klasse bekommt alle Informationen die sie
-benötigt um das Spiel zu initialisieren und zu verwalten:
+Die Klasse bekommt alle Informationen die sie benötigt um das Spiel zu initialisieren und zu verwalten:
 
-player	= eine selbstdefinierte Klasse. Hier wird der Spieler abgespeichert. Hat eine vektor für das team,
-        sowie eine psoiton und einen vektor für die letzte position
+player	= eine selbstdefinierte Klasse. Hier wird der Spieler abgespeichert. (siehe class player)
 
 map	 = ein 3D-Vektor der aus Chars besteht. Hier wird die world-map abgespeichert inklusive aller Zeichen, welche verschiedene Funktionen haben (später dazu mehr), die Map wird bereits bei der Initialisierung
 	    von game erstellt. Dafür wird mithilfe der Funktion "readfile(std::string file)" eine Textdatei eingelesen.
@@ -53,7 +51,7 @@ draw_map()	= Wird immer ausgeführt, wenn die Spielwelt angezeigt werden soll. D
 		Hierfür wird generate_probability() aufgerufen
 
 
-clear_last()	= checkt das letzte Feld des Spielers. Je nachdem was sich dort befunden hat wird das letzte Feld mit setCHaracter() überschrieben.
+clear_last()	= checkt das letzte Feld des Spielers . Je nachdem was sich dort befunden hat wird das letzte Feld mit setCHaracter() überschrieben.
         Hierzu wird der vektor last des Spielers benutzt. So entsteht die Illusion dass sich der Spieler bewegt
 
 class player
