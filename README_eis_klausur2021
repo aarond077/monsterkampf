@@ -1,0 +1,47 @@
+README Monsterkampf:
+
+setup:
+OS: Windows 10
+Compiler: MSVC17, c++20
+Qt Version: 5.14.2
+
+Monsterkampf ist eine simplifizierte Nachbildung des beliebten Pokemon-Spiels.
+
+Zur Steuerung des Protagonisten (Ash) benutzt man in meiner Version die Cursortasten. Solange man die gewünschte Taste gedrückt hält bewegt
+sich Ash in die Richtung des Cursors, es sei denn er läuft gegen eine Wand. Falls sich Ash auf einem Gras-Feld (Baum-Emoji) befindet, so gibt es eine 20%ige
+Wahrscheinlichkeit einem wilden Monster zu begegnen. Dieses macht sich mit einem Dialog bemerkbar in dem der Spieler vor die Wahl gestellt wird das
+Monster entweder zu fangen ("1" drücken), und somit in seinem Team aufzunehmen, oder zu flüchten ("2" drücken), woraufhin nichts passiert und der Dialog endet.
+
+Während der Spieler auf der Map zu sehen ist, kann er das aktive Monster nach belieben wechseln (drücke "p"). Falls er nur ein Monster besitzt endet der Dialog sobald man das aktive Monster wieder auswählt. Ansonsten kann er frei entscheiden welches Monster getauscht werden soll
+und der Dialog endet automatisch nach der Auswahl.
+Es gibt außerdem feindliche Trainer, welche zufällige Monster besitzen. Diese fordern Ash zu einem Kampf auf, sobald er sie berührt (bzw. auf das Feld tritt).
+Während des Kampfes hat der Spieler die Wahl, ob er angreift (a drücken), das aktive Monster heilt, wobei das aktive Monster 50% (gerundet) seiner maximalen LP hinzu addiert bekommt. Es kann jedoch nie mehr als die maximale Anzahl der LP erhalten(h drücken).
+Es ist während eines Kampfes nur einmal möglich zu heilen.
+Außerdem kann man das aktive Monster wechslen (c drücken) oder der Spieler versucht zu fliehen, was mit einer 80%igen Wahrscheinlichkeit gelingt.
+Der Schaden bei einem Angriff resultiert aus dem AP Wert des Monsters. Falls die LP des aktiven Monsters während des Kampfes auf 0 fallen,
+so ist der Spieler gezwungen das Monster zu wechseln. Fallen die LP aller Monster des Spielers auf 0, so ist das Spiel verloren.
+Die Flucht gelingt mit einer Wahrscheinlichkeit von 80%. Der herausfordernde Trainer verschwindet bei einer Flucht, allerdings bekommt das aktive Monster
+nur bei einem Sieg über den Trainer eine Belohnung in Form eines besseren AP Wertes.
+
+Es ist außerdem möglich wenn man ~5 sekunden auf einem Power Feld (Muskel-Symbol) wartet, die Lebenspunkte des aktiven Monsters um 5 zu erhöhen. Dies kann nur einmal pro Feld ausgelöst werden.
+Wenn der Spieler das Exit Feld betritt (Pfeil), kann er wählen ob er ein neues Spiel starten möchte, in dem Spiel bleibt, oder das Spiel ganz beendet.
+Wenn der Spieler verloren hat, ist es ebenfalls möglich ein neues Spiel zu starten.
+
+
+NOTE: DONT USE HEADPHONES WHILE PLAYING (oder auf leise einstellen)
+
+sources:
+https://doc.qt.io/qt-5/qsound.html
+random num generator(generate_probability(const unsigned &val)): https://stackoverflow.com/questions/7560114/random-number-c-in-some-range
+readfile(std::string file): Pacman Klausur (wurde leicht abgeändert, da der Code nicht funktioniert hatte)
+
+soundeffects:
+https://www.youtube.com/watch?v=eVysbNKl72c (pokemon center healing sound effect), mit tutor (Karl Manuel Betz) abgesprochen (no copyright im Titel)
+https://www.youtube.com/watch?v=8q41tKajv3A (videobeschreibung: ist in eigenen projekten benutzbar), capture monster sound
+https://www.youtube.com/watch?v=hDpfyI8Ljvs (videobeschreibung: ist in eigenen projekten benutzbar), start battle/wild monster sound
+
+https://www.sounds-resource.com/game_boy_gbc/pokemonredblueyellow/sound/17241/ (general sound effects)
+https://www.sounds-resource.com/game_boy_gbc/pokemonredblueyellow/sound/17240/ (attack sound effects)
+
+For copyright reasons:
+https://www.sounds-resource.com/page/about/
