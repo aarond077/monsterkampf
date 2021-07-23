@@ -1,0 +1,30 @@
+###############################################################################
+#      die wiese       #            #             #Y                          #
+########################            #             #Y            #######       #
+#GGGGGGGGGGGGGGGGGGGGGGG            #             ###########   #######       #
+#GGGGGGGGGGGGGGGGGGGGGGG            #             # monster #   # gym #       #
+#GGGGGGGGGGGGGGGGGGGGGGG            #             ###########   #######       #
+#GGGGGGGGGGGGGGGGGGGGGGG            #                                 #       #
+#               T       ######      #                                 #       #
+#                       #GGGG#      #      ############################       #
+#      T                #GGGG#      #      #  monster   center #PPPPPP#       #
+#                       #GGGG#      #      #####################PPPPPP#       #
+#              T        #GGGG#      #      #PPPPPPPPPPPPPPPPPPPPPPPPPP##      #
+#     ###################GGGG#             #PPPPPPPPPPPPPPPPPPPPPPPPPP        #
+#     T                 #GGGG###########################################      #
+#                       #GGGG#####################                            #
+#####################   #GGGGGGGGGGGGGGGGGGGG           #######################
+#       T           # T #GGGGGGGGGGGGGGGGGGGG             ###     GGGGGGG     #
+#                   #   #  ###################            ###  ####GGGGG##TT###
+#                       #  #                 ###          ###  #  #GGGGG#     #
+#   #####################  #                    ####           #  #GGGGG#     #
+#   #                   #  #  dunkeldunkel wald    #      ######  #######     #
+#   ##########          #  #                       #                ######TT###
+#    T       #          #  ############################################     ###
+###########   ###########  #     #GGGGGGGGGGGGGGG#      #           # #    ####
+#  ashs   # 0 #   haus  #  #     #GGGGGGGGGGGGGG##      #GGGGG#     # ##  #####
+###########   ###########  #     ##GGGGGGGGGGGGG        #GGGGG#               E
+#PPPPPPPPPPPPPPPPPPPPPPP#  #      GGGGGGGGGGGGGG##      #GGGGG#     # ##  #####
+#PPPPPPPPPPPPPPPPPPPPPPP#  ##    ##GGGGGGGGGGGGGG#      #GGGGG#     ###########
+#PPPPPPPPPPPPPPPPPPPPPPP#        #GGGGGGGGGGGGGGG#            #     # ausgang #
+###############################################################################
