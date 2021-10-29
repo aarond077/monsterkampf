@@ -5,6 +5,8 @@ OS: Windows 10
 Compiler: MSVC17, c++20
 Qt Version: 5.14.2
 
+EDIT: Das ist meine Klausur in "Einführung in die Softwareentwicklung". Da das Projekt unter ZEitdruck entstanden ist bitte nicht so sehr auf die Schönheit des Codes achten. Danke ;)
+
 Monsterkampf ist eine simplifizierte Nachbildung des beliebten Pokemon-Spiels.
 
 Zur Steuerung des Protagonisten (Ash) benutzt man in meiner Version die Cursortasten. Solange man die gewünschte Taste gedrückt hält bewegt
@@ -48,3 +50,4 @@ https://www.sounds-resource.com/game_boy_gbc/pokemonredblueyellow/sound/17240/ (
 
 For copyright reasons:
 https://www.sounds-resource.com/page/about/
+
